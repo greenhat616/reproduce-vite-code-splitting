@@ -44,7 +44,14 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
-      
+      - name: Setup git fork
+        run: |
+          git clone https://github.com/greenhat616/router.git
+          cd router
+          pnpm install --no-frozen-lockfile
+          pnpm build:all
+          cd ..
+          pnpm i -D ./router/packages/router-plugin
       - name: Build
         run: pnpm build
         env:
